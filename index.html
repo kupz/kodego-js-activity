@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array & String Method</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 3rem;
+        row-gap: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stringMethod">
+      <h1>Remove the vowels</h1>
+      <input type="text" placeholder="Enter Text here" id="txtString" />
+      <button id="btnGo">GO</button>
+      <h2 id="result">result</h2>
+    </div>
+    <div class="arrayMethod">
+      <h1>array method</h1>
+      <input type="text" id="myInput" />
+      <button id="addItem">Add</button>
+      <ul id="myList"></ul>
+    </div>
+    <script>
+      //String Method
+      const btnGo = document.querySelector("#btnGo");
+      const txtString = document.querySelector("#txtString");
+      const displayResult = document.querySelector("#result");
+      function result() {
+        const replaceTxt = txtString.value.replace(/[aeiou]/gi, "");
+        console.log(replaceTxt);
+        displayResult.textContent = replaceTxt;
+      }
+
+      btnGo.addEventListener("click", result);
+      // array method
+      const myInput = document.querySelector("#myInput");
+      const myList = document.querySelector("#myList");
+      const addItem = document.querySelector("#addItem");
+      let listItem = [];
+
+      function addToList() {
+        listItem = [myInput.value, ...listItem];
+        const li = listItem.map((item) => `<li>${item}</li>`);
+        myList.innerHTML = li.join("");
+        myInput.value = "";
+        myInput.focus();
+      }
+
+      addItem.addEventListener("click", addToList);
+    </script>
+  </body>
+</html>
