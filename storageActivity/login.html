@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1rem;
+      }
+      .form-container {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+      }
+      .form-container input {
+        padding: 1rem;
+      }
+      .form-container button {
+        padding: 1rem;
+      }
+      .navigation {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 3rem;
+        border: 1px solid black;
+      }
+      .navigation span:hover {
+        cursor: pointer;
+        color: blue;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navigation">
+      <span onclick="history.back()"><< back</span>
+      <span onclick=" window.location.href = './register.html'"
+        >Register >></span
+      >
+    </div>
+    <div class="form-container">
+      <input type="text" placeholder="Username" id="username" />
+      <input type="password" placeholder="Password" id="password" />
+      <h3 id="errorMessage"></h3>
+      <button onclick="handleLogin()">Login</button>
+    </div>
+    <script>
+      const localData = JSON.parse(localStorage.getItem("user"));
+      console.log(localData);
+      const handleLogin = () => {
+        const username = document.querySelector("#username").value;
+        const password = document.querySelector("#password").value;
+        if (
+          username === localData.username &&
+          password === localData.password
+        ) {
+          sessionStorage.setItem("isLoggedIn", "true");
+          window.location.href = "./index.html";
+        } else {
+          document.querySelector("#errorMessage").innerHTML =
+            "incorrect username or password";
+        }
+      };
+    </script>
+  </body>
+</html>

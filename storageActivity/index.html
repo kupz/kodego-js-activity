@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="navbar">
+        <span onclick="window.location.href = './login.html';">Login</span>
+        <span onclick="window.location.href = './register.html';"
+          >Register</span
+        >
+      </div>
+      <div class="content">
+        <h1>this content is only visible when you are logged in</h1>
+        <h3>Joke of the day!</h3>
+        <div id="jokeContainer"></div>
+      </div>
+    </div>
+    <script>
+      const sessionData = sessionStorage.getItem("isLoggedIn");
+      const localData = JSON.parse(localStorage.getItem("user"));
+      const loginDisplay = document.querySelector("h1");
+      if (sessionData === "true") {
+        loginDisplay.innerHTML = `welcome ${localData.username}!`;
+        // Fetch data from the API endpoint
+        fetch("https://official-joke-api.appspot.com/random_joke")
+          .then((response) => response.json())
+          .then((data) => {
+            const jokeContainer = document.getElementById("jokeContainer");
+
+            const setupElement = document.createElement("p");
+            setupElement.textContent = data.setup;
+            jokeContainer.appendChild(setupElement);
+
+            const punchlineElement = document.createElement("p");
+            punchlineElement.textContent = data.punchline;
+            jokeContainer.appendChild(punchlineElement);
+          })
+          .catch((error) => {
+            console.log("An error occurred:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

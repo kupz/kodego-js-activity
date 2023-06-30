@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .reg-container {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 4rem;
+        gap: 1rem;
+        border: 1px solid black;
+      }
+      .reg-container input {
+        padding: 1rem;
+      }
+      .reg-container button {
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reg-container">
+      <input type="text" placeholder="username" id="username" />
+      <input type="password" placeholder="password" id="password" />
+      <input
+        type="password"
+        placeholder=" confirm password"
+        id="confirmPassword"
+      />
+      <h3></h3>
+      <button id="regBtn" onclick="handleClick()">Register</button>
+    </div>
+    <script>
+      const handleClick = () => {
+        const username = document.getElementById("username").value;
+        const password = document.querySelector("#password").value;
+        const confirmPassword =
+          document.querySelector("#confirmPassword").value;
+
+        if (password === confirmPassword) {
+          const account = { username, password };
+          localStorage.setItem("user", JSON.stringify(account));
+          window.location.href = "./login.html";
+        } else if (password === "") {
+          document.querySelector("h3").innerHTML = "Please enter a password";
+        } else {
+          document.querySelector("h3").innerHTML = "Passwords do not match";
+        }
+      };
+    </script>
+  </body>
+</html>
